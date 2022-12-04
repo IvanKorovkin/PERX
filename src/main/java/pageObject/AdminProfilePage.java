@@ -1,39 +1,29 @@
 package pageObject;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class AdminProfilePage extends BasicPage{
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
-    public AdminProfilePage(WebDriver driver) {
-        super(driver);
-    }
+public class AdminProfilePage {
 
-    private final String workingPanelInUsersMenuLocator = "//*[contains(text(), 'Рабочая панель')]";
+    private SelenideElement avatarOfUser = $(By.xpath("//*[@class=\"header__top-expert-email\"]"));
 
-    @FindBy(xpath = "//*[@class=\"header__top-expert-email\"]")
-    private WebElement avatarOfUser;
-
-    @FindBy(xpath = workingPanelInUsersMenuLocator)
-    private WebElement workingPanelInUsersMenu;
+    private SelenideElement workingPanelInUsersMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
 
     @Step("Навести курсор мыши на аватар админа")
     public AdminProfilePage moveCursorToAvatar() {
-        actions.moveToElement(avatarOfUser).build().perform();
+        avatarOfUser.hover();
 
-        return new AdminProfilePage(driver);
+        return page(AdminProfilePage.class);
     }
 
     @Step("Кликнуть в выпадающем меню на вкладку Рабочая панель")
     public WorkingPanelPage clickToWorkingPanelInUsersMenu() {
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(workingPanelInUsersMenuLocator)));
         workingPanelInUsersMenu.click();
 
-        return new WorkingPanelPage(driver);
+        return page(WorkingPanelPage.class);
     }
 }

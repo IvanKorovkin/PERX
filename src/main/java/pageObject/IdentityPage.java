@@ -1,113 +1,66 @@
 package pageObject;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
+import static com.codeborne.selenide.Selenide.*;
 
-public class IdentityPage extends BasicPage{
-
-    public IdentityPage(WebDriver driver) {
-        super(driver);
-    }
+public class IdentityPage {
 
     private final String adminPassword = "Vamg8P06#JF6kC2w";
 
-    @FindBy(xpath = "//span[@data-field='SystemRoles']")
-    private WebElement systemRolesFilter;
+    private SelenideElement systemRolesFilter = $(By.xpath("//span[@data-field='SystemRoles']"));
 
-    @FindBy(xpath = "//li[text()='Пользователи' and @data-offset-index='19']")
-    private WebElement usersInSystemRolesFilter;
+    private SelenideElement usersInSystemRolesFilter =
+            $(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"));
 
-    @FindBy(xpath = "(//*[@class='change-role user-table-svg tooltip tooltipstered'])[1]")
-    private WebElement buttonEditSystemRoleOfFirstUser;
 
-    @FindBy(xpath = "//h4[.='Изменение системных ролей пользователя']")
-    private WebElement nameModalWindowOfEditSystemRole;
+    private SelenideElement buttonEditSystemRoleOfFirstUser =
+            $(By.xpath("(//*[@class='change-role user-table-svg tooltip tooltipstered'])[1]"));
 
-    @FindBy(xpath = "//*[@class='change-role-select']")
-    private WebElement inputForEnterSystemRoleClick;
+    private SelenideElement nameModalWindowOfEditSystemRole
+            = $(By.xpath("//h4[.='Изменение системных ролей пользователя']"));
 
-    @FindBy(css = "#SelectedRolesIds_chosen .chosen-search-input")
-    private WebElement inputForEnterSystemRoleEnter;
+    private SelenideElement inputForEnterSystemRoleClick = $(By.xpath("//*[@class='change-role-select']"));
 
-    @FindBy(xpath = "//li[@data-option-array-index='10']")
-    private WebElement systemRoleOfMainExpertInList;
+    private SelenideElement inputForEnterSystemRoleEnter = $("#SelectedRolesIds_chosen .chosen-search-input");
 
-    @FindBy(xpath = "")
-    private WebElement systemRoleOfWatcherInList;
+    private SelenideElement systemRoleOfMainExpertInList = $(By.xpath("//li[@data-option-array-index='10']"));
 
-    @FindBy(css = "#change-role-modal .modal-header svg")
-    private WebElement buttonCloseModalWindowOfChangeSystemRole;
+    private SelenideElement buttonCloseModalWindowOfChangeSystemRole = $("#change-role-modal .modal-header svg");
 
-    @FindBy(xpath = "(//button[@class='btn btn-primary js-show-user-actions'])[1]")
-    private WebElement buttonManagementFirstUser;
+    private SelenideElement buttonManagementFirstUser
+            = $(By.xpath("(//button[@class='btn btn-primary js-show-user-actions'])[1]"));
 
-    @FindBy(xpath = "//div[@class='user-actions_block btn btn-outline js-auth-user']")
-    private WebElement buttonAuthUser;
+    private SelenideElement buttonAuthUser = $(By.xpath("//div[@class='user-actions_block btn btn-outline js-auth-user']"));
 
-    @FindBy(xpath = "//input[@type='password']")
-    private WebElement inputEnterAdminPasswordIdentity;
+    private SelenideElement inputEnterAdminPasswordIdentity = $(By.xpath("//input[@type='password']"));
 
-    @FindBy(xpath = "//button[@id='confirm-change']")
-    private WebElement buttonConfirmIdentity;
+    private SelenideElement buttonConfirmIdentity = $(By.xpath("//button[@id='confirm-change']"));
+
+    private ElementsCollection rolesListInModalWindow = $$(By.xpath("//li[@data-option-array-index]"));
 
     @Step("Открыть выпадающий список в фильтре системных ролей")
     public IdentityPage openSystemRolesFilter() {
         systemRolesFilter.click();
-        webDriverWait.until(ExpectedConditions
-                .visibilityOf(driver.findElement(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"))));
 
         return this;
     }
 
-    @Step("Выбрать в выпадающем списоке системных ролей роль Пользователи")
+    @Step("Выбрать в выпадающем списке системных ролей роль Пользователи")
     public IdentityPage selectInSystemRolesFilterUsers() {
-        webDriverWait.until(ExpectedConditions
-                .visibilityOf(driver.findElement(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"))));
-        try {
-            webDriverWait.until(ExpectedConditions
-                    .elementToBeClickable(driver.findElement(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"))));
-        } catch (Exception e) {
-            webDriverWait.until(ExpectedConditions
-                    .visibilityOf(driver.findElement(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"))));
-        }
         usersInSystemRolesFilter.click();
-        List<WebElement> usersList = driver
-                .findElements(By.xpath("//div[@class='system-roles-block' and contains(span,'Пользователь')]"));
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(usersList));
-
-//        webDriverWait.until(ExpectedConditions
-//                .elementToBeClickable(driver.findElement(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"))));
-//        usersInSystemRolesFilter.click();
-//        List<WebElement> usersList = driver
-//                .findElements(By.xpath("//div[@class='system-roles-block' and contains(span,'Пользователь')]"));
-//        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(usersList));
 
         return this;
     }
 
     @Step("Кликнуть на кнопку редактирования системной роли первого пользователя по списку")
     public IdentityPage editSystemRoleOfFirstUserInList() {
-
-        try {
-            webDriverWait.until(ExpectedConditions
-                    .invisibilityOf(driver.findElement(By.xpath("//div[@class='k-loading-mask']"))));
-        } catch (Exception e) {
-            webDriverWait.until(ExpectedConditions
-                    .elementToBeClickable(buttonEditSystemRoleOfFirstUser));
-            buttonEditSystemRoleOfFirstUser.click();
-        }
-
-
-        webDriverWait.until(ExpectedConditions
-                .elementToBeClickable(buttonEditSystemRoleOfFirstUser));
         buttonEditSystemRoleOfFirstUser.click();
-        webDriverWait.until(ExpectedConditions.visibilityOf(nameModalWindowOfEditSystemRole));
 
         return this;
     }
@@ -116,14 +69,12 @@ public class IdentityPage extends BasicPage{
     public IdentityPage enterNewSystemRoleInModalWindow(String systemRole) {
         inputForEnterSystemRoleClick.click();
         inputForEnterSystemRoleEnter.sendKeys(systemRole);
-        List<WebElement> webElements = driver.findElements(By.xpath("//li[@data-option-array-index]"));
-        webElements.stream().filter(f -> f.getText().contains(systemRole)).findFirst().get().click();
-        //systemRoleOfMainExpertInList.click();
+        rolesListInModalWindow.findBy(Condition.text(systemRole)).click();
 
         return this;
     }
 
-    @Step("Открыть выпадающий список в фильтре системных ролей")
+    @Step("Закрыть модальное окно редактирования системных ролей")
     public IdentityPage closeModalWindowOfChangeSystemRole() {
         buttonCloseModalWindowOfChangeSystemRole.click();
 
@@ -132,11 +83,6 @@ public class IdentityPage extends BasicPage{
 
     @Step("Кликнуть на кнопку Управление")
     public IdentityPage clickButtonManagementFirstUser() {
-        List<WebElement> usersList = driver
-                .findElements(By.xpath("//div[@class='system-roles-block' and contains(span,'Пользователь')]"));
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(usersList));
-        webDriverWait.until(ExpectedConditions
-                .elementToBeClickable(buttonEditSystemRoleOfFirstUser));
         buttonManagementFirstUser.click();
 
         return this;
@@ -159,10 +105,9 @@ public class IdentityPage extends BasicPage{
     @Step("Кликнуть на кнопку Подтвердить")
     public UserProfilePage confirmIdentity() {
         buttonConfirmIdentity.click();
-        UserProfilePage mainExpertProfilePage = new UserProfilePage(driver);
-        webDriverWait.until(ExpectedConditions.urlToBe(mainExpertProfilePage.urlOfMainPageAutorization));
+        $(By.xpath("//h3[@class='mr-2']")).shouldBe(Condition.visible);
 
-        return new UserProfilePage(driver);
+        return page(UserProfilePage.class);
     }
 
 
