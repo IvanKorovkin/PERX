@@ -15,6 +15,10 @@ public class MainPage {
 
     private SelenideElement entranceButton = $(By.xpath("//*[@class=\"login-button\"]"));
 
+    private SelenideElement avatarAuthUser = $(By.xpath("//a[@class='header__top-expert']"));
+
+    private SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
+
     @Step("Пройти базовую авторизацию и войти на главную страницу")
     public MainPage entranceToMainPage() {
         open(urlOfMainPageAutorization);
@@ -27,6 +31,20 @@ public class MainPage {
         entranceButton.click();
 
         return page(LoginPage.class);
+    }
+
+    @Step("Навести курсор на аватар уже залогиненного пользователя")
+    public MainPage moveCursorToAvatarOnMainPage() {
+        avatarAuthUser.hover();
+
+        return this;
+    }
+
+    @Step("Кликнуть в всплывающем меню пользователя на Рабочую панель")
+    public WorkingPanelPage clickToWorkingPanelInUsersMenu() {
+        buttonWorkingPanelInMenu.click();
+
+        return page(WorkingPanelPage.class);
     }
 
 }

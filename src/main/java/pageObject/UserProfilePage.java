@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import org.openqa.selenium.By;
+import pageObject.registries.ExpertiseNewPage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
@@ -21,7 +22,6 @@ public class UserProfilePage {
     private SelenideElement avatarOfWatcher = $(By.xpath("//a[@class='header__top-expert']"));
 
     private SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
-
 
     @Step("Навести курсор мыши на аватар Главного эксперта")
     public UserProfilePage moveToAvatarOfMainExpert() {

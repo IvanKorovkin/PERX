@@ -1,11 +1,11 @@
-package pageObject;
+package pageObject.registries;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import pageObject.MainPage;
 
 
 import static com.codeborne.selenide.Selenide.$;
@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class ExpertiseNewPage {
 
     MainPage mainPage = new MainPage();
-    protected final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/expertise";
+    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/expertise";
 
     private SelenideElement registryName = $(By.xpath("//*[@class=\"information-bar__item_name\"]"));
 
