@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class OESPage {
 
     MainPage mainPage = new MainPage();
-    protected final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/oes";
+    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/oes";
 
     private SelenideElement registryName = $(By.xpath("//div[@id='information-bar__item_toggler']"));
 

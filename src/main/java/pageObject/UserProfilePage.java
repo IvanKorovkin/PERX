@@ -6,9 +6,9 @@ import io.qameta.allure.Step;
 
 import org.openqa.selenium.By;
 import pageObject.registries.ExpertiseNewPage;
+import pageObject.registries.ListOfApplicationsPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 
 public class UserProfilePage {
 
@@ -22,6 +22,8 @@ public class UserProfilePage {
     private SelenideElement avatarOfWatcher = $(By.xpath("//a[@class='header__top-expert']"));
 
     private SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
+
+    private SelenideElement buttonListOfApplication = $(By.xpath("//a[.='Перечень заявок']"));
 
     @Step("Навести курсор мыши на аватар Главного эксперта")
     public UserProfilePage moveToAvatarOfMainExpert() {
@@ -44,10 +46,17 @@ public class UserProfilePage {
         return page(WorkingPanelPage.class);
     }
 
+    @Step("Кликнуть в выпадающем меню пользователя на вкладку Перечень заявок")
+    public ListOfApplicationsPage clickToListOfApplicationInUsersMenu() {
+        buttonListOfApplication.click();
+
+        return page(ListOfApplicationsPage.class);
+    }
+
     @Step("Перейти в реестр Экспертиза по прямой ссылке")
     public ExpertiseNewPage checkTransitionToExpertiseRegistryByLink() {
         ExpertiseNewPage expertiseNewPage = new ExpertiseNewPage();
-        Selenide.open(expertiseNewPage.linkToTheRegistry);
+        open(expertiseNewPage.linkToTheRegistry);
 
         return page(ExpertiseNewPage.class);
     }

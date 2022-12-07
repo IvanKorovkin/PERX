@@ -1,6 +1,9 @@
 package pageObject.registries;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -8,7 +11,10 @@ import org.openqa.selenium.NoSuchElementException;
 import pageObject.MainPage;
 
 
+import java.util.function.BooleanSupplier;
+
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.webdriver;
 
 public class ExpertiseNewPage {
 
@@ -40,47 +46,36 @@ public class ExpertiseNewPage {
         Assertions.assertEquals(name, registryName.getText());
     }
 
-    // метод для проверки, есть ли элемент на странице
-    private boolean isElementPresent(String xpath) {
-        try {
-            $(By.xpath(xpath));
+    private boolean isElementPresent(SelenideElement element) {
 
-            return true;
-        } catch (NoSuchElementException e) {
-
-            return false;
-        }
+        return element.exists();
     }
+
+
 
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Статус заявки")
     public void checkClosedColumnStatusOfApplicationForWatcherAndAnalytic() {
-        Assertions.assertFalse(isElementPresent(statusOfApplication.getText()));
+        Assertions.assertFalse(isElementPresent(statusOfApplication));
     }
 
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Статус экспертизы")
     public void checkClosedColumnStatusOfExpertiseForWatcherAndAnalytic() {
-        Assertions.assertFalse(isElementPresent(statusOfExpertise.getText()));
+        Assertions.assertFalse(isElementPresent(statusOfExpertise));
     }
 
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Имя эксперта")
     public void checkClosedColumnNameOfExpertForWatcherAndAnalytic() {
-        Assertions.assertFalse(isElementPresent(nameOfExpert.getText()));
+        Assertions.assertFalse(isElementPresent(nameOfExpert));
     }
 
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Цвет эксперта")
     public void checkClosedColumnColorOfExpertForWatcherAndAnalytic() {
-        Assertions.assertFalse(isElementPresent(colorOfExpert.getText()));
+        Assertions.assertFalse(isElementPresent(colorOfExpert));
     }
 
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Проверка на плагиат")
     public void checkClosedColumnCheckForPlagiarismForWatcherAndAnalytic() {
-        Assertions.assertFalse(isElementPresent(checkForPlagiarism.getText()));
+        Assertions.assertFalse(isElementPresent(checkForPlagiarism));
     }
-
-    @Step("Проверить недоступность реестра экспертиза для данной роли")
-    public void checkInaccessibilityForExpertiseRegistryForOtherRole() {
-        Assertions.assertEquals(true, isElementPresent(inscriptionAccessDenied.getText()));
-    }
-
 
 }

@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class OES_AdminPage {
 
     MainPage mainPage = new MainPage();
-    protected final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/oes-admin";
+    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/oes-admin";
 
     private SelenideElement registryName = $(By.xpath("//div[@class='information-bar__item_name']"));
 

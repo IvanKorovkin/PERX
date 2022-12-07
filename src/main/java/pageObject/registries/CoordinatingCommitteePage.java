@@ -24,16 +24,4 @@ public class CoordinatingCommitteePage {
         Assertions.assertEquals(name, registryName.getText());
     }
 
-    // метод для проверки, есть ли элемент на странице
-    private boolean isElementPresent(String xpath) {
-        try {
-            $(By.xpath(xpath));
-
-            return true;
-        } catch (NoSuchElementException e) {
-
-            return false;
-        }
-    }
-
 }

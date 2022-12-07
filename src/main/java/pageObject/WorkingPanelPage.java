@@ -1,5 +1,6 @@
 package pageObject;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -16,7 +17,7 @@ public class WorkingPanelPage {
 
     private SelenideElement registryIdentity = $(By.xpath("//*[contains(text(), 'Управление ролями и пользователям')]"));
 
-    private SelenideElement registryListOfApplication = $(By.xpath("//*[contains(text(),'Перечень заявок')]"));
+    private SelenideElement registryListOfApplication = $(By.xpath("//span[.='Перечень заявок']"));
 
     private SelenideElement registryExperts = $(By.xpath("//*[contains(text(),'Эксперты')]"));
 
@@ -40,6 +41,14 @@ public class WorkingPanelPage {
         return page(ExpertiseNewPage.class);
     }
 
+    @Step("Перейти по прямой ссылке в реестр Экспертиза")
+    public AccessesDeniedPage followTheLinkExpertise() {
+        ExpertiseNewPage expertiseNewPage = new ExpertiseNewPage();
+        open(expertiseNewPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
+    }
+
     @Step("Кликнуть в рабочей панели на реестр Управление ролями и пользователями")
     public IdentityPage entranceToRegistryIdentity() {
         registryIdentity.click();
@@ -61,11 +70,27 @@ public class WorkingPanelPage {
         return page(ExpertsPage.class);
     }
 
+    @Step("Перейти по прямой ссылке в реестр Эксперты")
+    public AccessesDeniedPage followTheLinkExperts() {
+        ExpertsPage expertsPage = new ExpertsPage();
+        open(expertsPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
+    }
+
     @Step("Кликнуть в рабочей панели на реестр Договоры и акты с экспертами (новые)")
     public AgreementExpertNewPage entranceToRegistryAgreementExpertNew() {
         registryAgreementExpertNew.click();
 
         return page(AgreementExpertNewPage.class);
+    }
+
+    @Step("Перейти по прямой ссылке в реестр Договоры и акты с экспертами (новые)")
+    public AccessesDeniedPage followTheLinkAgreementExpert() {
+        AgreementExpertNewPage agreementExpertNewPage = new AgreementExpertNewPage();
+        open(agreementExpertNewPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
     }
 
     @Step("Кликнуть в рабочей панели на реестр Рассмотрение итогов")
@@ -75,11 +100,27 @@ public class WorkingPanelPage {
         return page(OES_AdminPage.class);
     }
 
+    @Step("Перейти по прямой ссылке в реестр Рассмотрение итогов")
+    public AccessesDeniedPage followTheLinkOESAdmin() {
+        OES_AdminPage oes_adminPage = new OES_AdminPage();
+        open(oes_adminPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
+    }
+
     @Step("Кликнуть в рабочей панели на реестр ОЭС")
     public OES_AdminPage entranceToRegistryOES() {
         registryOES.click();
 
         return page(OES_AdminPage.class);
+    }
+
+    @Step("Перейти по прямой ссылке в реестр ОЭС")
+    public AccessesDeniedPage followTheLinkOES() {
+        OESPage oesPage = new OESPage();
+        open(oesPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
     }
 
     @Step("Кликнуть в рабочей панели на реестр КК")
@@ -97,12 +138,26 @@ public class WorkingPanelPage {
         return page(AccessesDeniedPage.class);
     }
 
+    @Step("Кликнуть в рабочей панели на реестр Договоры")
+    public AgreementPage entranceToRegistryAgreement() {
+        registryAgreement.click();
+
+        return page(AgreementPage.class);
+    }
+
     @Step("Перейти по прямой ссылке в реестр Договоры")
     public AccessesDeniedPage followTheLinkAgreement() {
         AgreementPage agreementPage = new AgreementPage();
         open(agreementPage.linkToTheRegistry);
 
         return page(AccessesDeniedPage.class);
+    }
+
+    @Step("Кликнуть в рабочей панели на реестр Отчетность по этапам")
+    public ReportPage entranceToRegistryReport() {
+        registryReport.click();
+
+        return page(ReportPage.class);
     }
 
     @Step("Перейти по прямой ссылке в реестр Отчетность по этапам")

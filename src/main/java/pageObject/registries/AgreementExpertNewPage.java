@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class AgreementExpertNewPage {
 
     MainPage mainPage = new MainPage();
-    protected final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "agreement-expert/admin/documents";
+    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "agreement-expert/admin/documents";
 
     private SelenideElement registryName = $(By.xpath("//*[@class=\"information-bar__item_name\"]"));
 

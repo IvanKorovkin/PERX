@@ -9,12 +9,13 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.*;
+import pageObject.MainPage;
+import pageObject.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@Story("Проверка Ролевой модели Главного эксперта")
-public class MainExpertTest {
+@Story("Проверка ролевой модели валидатора")
+public class ValidatorTest {
 
     @BeforeAll
     public static void setUp() {
@@ -23,8 +24,8 @@ public class MainExpertTest {
 
     @Order(1)
     @Test
-    @DisplayName("Доступ к реестру \"Экспертиза\"")
-    public void testAccessToRegistryExpertiseMainExpert() {
+    @DisplayName("Доступ к реестру \"Перечень заявок\"")
+    public void testAccessToListOfApplicationValidator() {
         new MainPage()
                 .entranceToMainPage()
                 .entranceButtonClick()
@@ -37,77 +38,67 @@ public class MainExpertTest {
                 .openSystemRolesFilter()
                 .selectInSystemRolesFilterUsers()
                 .editSystemRoleOfFirstUserInList()
-                .enterNewSystemRoleInModalWindow("Главный эксперт")
+                .enterNewSystemRoleInModalWindow("Валидатор")
                 .closeModalWindowOfChangeSystemRole()
                 .clickButtonManagementFirstUser()
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatarOfMainExpert()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryExpertiseNew()
-                .checkNameOfRegistry("Экспертиза");
-    }
-
-    @Order(2)
-    @Test
-    @DisplayName("Доступ к реестру \"Перечень заявок\"")
-    public void testAccessToListOfApplicationMainExpert() {
-        new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
                 .checkNameOfRegistry("Перечень заявок");
     }
 
+    @Order(2)
+    @Test
+    @DisplayName("Отсутствие доступа к реестру \"Эксперты\"")
+    public void testAccessDeniedToExpertsValidator() {
+        new WorkingPanelPage()
+                .followTheLinkExperts()
+                .checkInaccessibilityRegistryForThisRole();
+    }
+
     @Order(3)
     @Test
-    @DisplayName("Доступ к реестру \"Эксперты\"")
-    public void testAccessToExpertsMainExpert() {
-        new MainPage()
-                .moveCursorToAvatarOnMainPage()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryExperts()
-                .checkNameOfRegistry("Эксперты");
+    @DisplayName("Отсутствие доступа к реестру \"Экспертиза\"")
+    public void testAccessDeniedToExpertiseValidator() {
+        new WorkingPanelPage()
+                .followTheLinkExpertise()
+                .checkInaccessibilityRegistryForThisRole();
     }
 
     @Order(4)
     @Test
-    @DisplayName("Доступ к реестру \"Договоры и акты с экспертами (новые)\"")
-    public void testAccessToAgreementExpertMainExpert() {
-        new MainPage()
-                .moveCursorToAvatarOnMainPage()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryAgreementExpertNew()
-                .checkNameOfRegistry("Реестр договоров и актов с экспертами");
+    @DisplayName("Отсутствие доступа к реестру \"Договоры и акты с экспертами\"")
+    public void testAccessDeniedToAgreementExpertValidator() {
+        new WorkingPanelPage()
+                .followTheLinkAgreementExpert()
+                .checkInaccessibilityRegistryForThisRole();
     }
 
     @Order(5)
     @Test
-    @DisplayName("Доступ к реестру \"Рассмотрение итогов\"")
-    public void testAccessToOESAdminMainExpert() {
-        new MainPage()
-                .moveCursorToAvatarOnMainPage()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryOESAdmin()
-                .checkNameOfRegistry("Рассмотрение итогов");
+    @DisplayName("Отсутствие доступа к реестру \"Расмотрение итогов\"")
+    public void testAccessDeniedToOESAdminValidator() {
+        new WorkingPanelPage()
+                .followTheLinkOESAdmin()
+                .checkInaccessibilityRegistryForThisRole();
     }
 
     @Order(6)
     @Test
-    @DisplayName("Доступ к реестру \"Экспертный совет\"")
-    public void testAccessToOESMainExpert() {
-        new MainPage()
-                .moveCursorToAvatarOnMainPage()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+    @DisplayName("Отсутствие доступа к реестру \"Экспертный совет\"")
+    public void testAccessDeniedToOESValidator() {
+        new WorkingPanelPage()
+                .followTheLinkOES()
+                .checkInaccessibilityRegistryForThisRole();
     }
 
     @Order(7)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Координационный комитет\"")
-    public void testAccessDeniedToCoordinatingCommitteeMainExpert() {
+    public void testAccessDeniedToCoordinatingCommitteeValidator() {
         new WorkingPanelPage()
                 .followTheLinkCoordinatingCommittee()
                 .checkInaccessibilityRegistryForThisRole();
@@ -116,7 +107,7 @@ public class MainExpertTest {
     @Order(8)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Договоры\"")
-    public void testAccessDeniedToAgreementMainExpert() {
+    public void testAccessDeniedToAgreementValidator() {
         new WorkingPanelPage()
                 .followTheLinkAgreement()
                 .checkInaccessibilityRegistryForThisRole();
@@ -125,7 +116,7 @@ public class MainExpertTest {
     @Order(9)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Отчетность по этапам\"")
-    public void testAccessDeniedToReportMainExpert() {
+    public void testAccessDeniedToReportValidator() {
         new WorkingPanelPage()
                 .followTheLinkReport()
                 .checkInaccessibilityRegistryForThisRole();
@@ -144,9 +135,6 @@ public class MainExpertTest {
     public static void quitBrowser() {
         Selenide.closeWebDriver();
     }
-
-
-
 
 
 
