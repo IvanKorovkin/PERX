@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class ListOfApplicationsPage {
 
     MainPage mainPage = new MainPage();
-    protected final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/validation";
+    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/validation";
 
     private SelenideElement registryName = $(By.xpath("//*[@class=\"information-bar__item_name\"]"));
 

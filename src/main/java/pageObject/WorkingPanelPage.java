@@ -63,6 +63,14 @@ public class WorkingPanelPage {
         return page(ListOfApplicationsPage.class);
     }
 
+    @Step("Перейти по прямой ссылке в реестр Перечень заявок")
+    public AccessesDeniedPage followTheLinkListOfApplication() {
+        ListOfApplicationsPage listOfApplicationsPage = new ListOfApplicationsPage();
+        open(listOfApplicationsPage.linkToTheRegistry);
+
+        return page(AccessesDeniedPage.class);
+    }
+
     @Step("Кликнуть в рабочей панели на реестр Эксперты")
     public ExpertsPage entranceToRegistryExperts() {
             registryExperts.click();

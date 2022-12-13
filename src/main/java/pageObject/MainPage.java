@@ -13,7 +13,7 @@ public class MainPage {
     private String demoFPG = "new.xn--80afcdbalict6afooklqi5o.xn--p1ai/";
     public String urlOfMainPageAutorization = "https://" + basicName + ":" + basicPassword + "@" + demoFPG;
 
-    private SelenideElement entranceButton = $(By.xpath("//*[@class=\"login-button\"]"));
+    private SelenideElement entranceButton = $(By.xpath("//*[@class='login-button']"));
 
     private SelenideElement avatarAuthUser = $(By.xpath("//a[@class='header__top-expert']"));
 

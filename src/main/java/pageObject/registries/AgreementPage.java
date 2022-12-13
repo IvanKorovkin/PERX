@@ -13,6 +13,8 @@ public class AgreementPage {
     MainPage mainPage = new MainPage();
     public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "agreement/admin/documents";
 
+
+
     private SelenideElement registryName = $(By.xpath("//div[@class='information-bar__item_name']"));
 
     @Step("Проверить отображение наименования реестра \"Договоры\"")

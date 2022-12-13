@@ -1,20 +1,13 @@
 package pageObject.registries;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import pageObject.MainPage;
 
-
-import java.util.function.BooleanSupplier;
-
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.webdriver;
+import static helpers.Helpers.*;
 
 public class ExpertiseNewPage {
 
@@ -45,14 +38,7 @@ public class ExpertiseNewPage {
     public void checkNameOfRegistry(String name) {
         Assertions.assertEquals(name, registryName.getText());
     }
-
-    private boolean isElementPresent(SelenideElement element) {
-
-        return element.exists();
-    }
-
-
-
+    
     @Step("Проверить, что для аналитика и наблюдателя в реестре Экспертиза не отображается поле Статус заявки")
     public void checkClosedColumnStatusOfApplicationForWatcherAndAnalytic() {
         Assertions.assertFalse(isElementPresent(statusOfApplication));
