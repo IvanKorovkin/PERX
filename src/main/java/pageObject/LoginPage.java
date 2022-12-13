@@ -1,46 +1,42 @@
 package pageObject;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.By;
 
-public class LoginPage extends BasicPage{
-    public LoginPage(WebDriver driver) {
-        super(driver);
-    }
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
+
+public class LoginPage {
 
     private final String adminName = "lerique@me.com";
     private final String adminPassword = "Vamg8P06#JF6kC2w";
 
-    @FindBy(xpath = "//*[@id=\"Username\"]")
-    private WebElement usernameField;
+    private SelenideElement usernameField = $(By.xpath("//*[@id=\"Username\"]"));
 
-    @FindBy(xpath = "//*[@id=\"Password\"]")
-    private WebElement passwordField;
+    private SelenideElement passwordField = $(By.xpath("//*[@id=\"Password\"]"));
 
-    @FindBy(xpath = "//*[@value=\"login\"]")
-    private WebElement entranceButton;
+    private SelenideElement entranceButton = $(By.xpath("//*[@value=\"login\"]"));
 
     @Step("Ввести логин Админа")
     public LoginPage enterAdminName() {
         usernameField.sendKeys(adminName);
 
-        return new LoginPage(driver);
+        return this;
     }
 
     @Step("Ввести пароль Админа")
     public LoginPage enterAdminPassword() {
         passwordField.sendKeys(adminPassword);
 
-        return new LoginPage(driver);
+        return this;
     }
 
     @Step("Кликнуть на кнопку Войти")
     public AdminProfilePage clickEntranceButton() {
         entranceButton.click();
 
-        return new AdminProfilePage(driver);
+        return page(AdminProfilePage.class);
     }
 
 

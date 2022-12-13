@@ -1,26 +1,27 @@
 package pageObject;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.By;
 
-public class MainPage extends BasicPage{
-    public MainPage(WebDriver driver) {
-        super(driver);
-    }
+import static com.codeborne.selenide.Selenide.*;
+
+public class MainPage {
 
     private String basicName = "i.korovkin";
     private String basicPassword = "zu_e8Oyah_p0oh";
     private String demoFPG = "new.xn--80afcdbalict6afooklqi5o.xn--p1ai/";
-    protected String urlOfMainPageAutorization = "https://" + basicName + ":" + basicPassword + "@" + demoFPG;
+    public String urlOfMainPageAutorization = "https://" + basicName + ":" + basicPassword + "@" + demoFPG;
 
-    @FindBy(xpath = "//*[@class=\"login-button\"]")
-    private WebElement entranceButton;
+    private SelenideElement entranceButton = $(By.xpath("//*[@class='login-button']"));
+
+    private SelenideElement avatarAuthUser = $(By.xpath("//a[@class='header__top-expert']"));
+
+    private SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
 
     @Step("Пройти базовую авторизацию и войти на главную страницу")
     public MainPage entranceToMainPage() {
-        driver.get(urlOfMainPageAutorization);
+        open(urlOfMainPageAutorization);
 
         return this;
     }
@@ -29,7 +30,21 @@ public class MainPage extends BasicPage{
     public LoginPage entranceButtonClick() {
         entranceButton.click();
 
-        return new LoginPage(driver);
+        return page(LoginPage.class);
+    }
+
+    @Step("Навести курсор на аватар уже залогиненного пользователя")
+    public MainPage moveCursorToAvatarOnMainPage() {
+        avatarAuthUser.hover();
+
+        return this;
+    }
+
+    @Step("Кликнуть в всплывающем меню пользователя на Рабочую панель")
+    public WorkingPanelPage clickToWorkingPanelInUsersMenu() {
+        buttonWorkingPanelInMenu.click();
+
+        return page(WorkingPanelPage.class);
     }
 
 }
