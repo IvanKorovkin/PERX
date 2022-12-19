@@ -1,48 +1,41 @@
 package pageObject.registries;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import pageObject.UserProfilePage;
+import pageObject.otherPage.UserProfilePage;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class IdentityPage {
 
-    private final String adminPassword = "Vamg8P06#JF6kC2w";
+    private final SelenideElement systemRolesFilter = $(By.xpath("//span[@data-field='SystemRoles']"));
 
-    private SelenideElement systemRolesFilter = $(By.xpath("//span[@data-field='SystemRoles']"));
-
-    private SelenideElement usersInSystemRolesFilter =
+    private final SelenideElement usersInSystemRolesFilter =
             $(By.xpath("//li[text()='Пользователи' and @data-offset-index='19']"));
 
+    private final SelenideElement lastUserInRolesList = $(By.xpath(("(//span[.='Пользователь'])[20]")));
 
-    private SelenideElement buttonEditSystemRoleOfFirstUser =
+    private final SelenideElement buttonEditSystemRoleOfFirstUser =
             $(By.xpath("(//*[@class='change-role user-table-svg tooltip tooltipstered'])[1]"));
 
-    private SelenideElement nameModalWindowOfEditSystemRole
-            = $(By.xpath("//h4[.='Изменение системных ролей пользователя']"));
+    private final SelenideElement inputForEnterSystemRoleClick = $(By.xpath("//*[@class='change-role-select']"));
 
-    private SelenideElement inputForEnterSystemRoleClick = $(By.xpath("//*[@class='change-role-select']"));
+    private final SelenideElement inputForEnterSystemRoleEnter = $("#SelectedRolesIds_chosen .chosen-search-input");
 
-    private SelenideElement inputForEnterSystemRoleEnter = $("#SelectedRolesIds_chosen .chosen-search-input");
+    private final SelenideElement buttonCloseModalWindowOfChangeSystemRole = $("#change-role-modal .modal-header svg");
 
-    private SelenideElement systemRoleOfMainExpertInList = $(By.xpath("//li[@data-option-array-index='10']"));
-
-    private SelenideElement buttonCloseModalWindowOfChangeSystemRole = $("#change-role-modal .modal-header svg");
-
-    private SelenideElement buttonManagementFirstUser
+    private final SelenideElement buttonManagementFirstUser
             = $(By.xpath("(//button[@class='btn btn-primary js-show-user-actions'])[1]"));
 
-    private SelenideElement buttonAuthUser = $(By.xpath("//div[@class='user-actions_block btn btn-outline js-auth-user']"));
+    private final SelenideElement buttonAuthUser = $(By
+            .xpath("//div[@class='user-actions_block btn btn-outline js-auth-user']"));
 
-    private SelenideElement inputEnterAdminPasswordIdentity = $(By.xpath("//input[@type='password']"));
+    private final SelenideElement inputEnterAdminPasswordIdentity = $(By.xpath("//input[@type='password']"));
 
-    private SelenideElement buttonConfirmIdentity = $(By.xpath("//button[@id='confirm-change']"));
+    private final SelenideElement buttonConfirmIdentity = $(By.xpath("//button[@id='confirm-change']"));
 
-    private ElementsCollection rolesListInModalWindow = $$(By.xpath("//li[@data-option-array-index]"));
+    private final ElementsCollection rolesListInModalWindow = $$(By.xpath("//li[@data-option-array-index]"));
 
     @Step("Открыть выпадающий список в фильтре системных ролей")
     public IdentityPage openSystemRolesFilter() {
@@ -54,6 +47,7 @@ public class IdentityPage {
     @Step("Выбрать в выпадающем списке системных ролей роль Пользователи")
     public IdentityPage selectInSystemRolesFilterUsers() {
         usersInSystemRolesFilter.click();
+        lastUserInRolesList.shouldBe(Condition.visible);
 
         return this;
     }
@@ -97,6 +91,7 @@ public class IdentityPage {
 
     @Step("Ввести пароль для подтверждения действия")
     public IdentityPage enterAdminPasswordIdentity() {
+        String adminPassword = "Vamg8P06#JF6kC2w";
         inputEnterAdminPasswordIdentity.sendKeys(adminPassword);
 
         return this;

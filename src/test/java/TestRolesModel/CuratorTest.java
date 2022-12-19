@@ -9,8 +9,8 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.MainPage;
-import pageObject.WorkingPanelPage;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -20,6 +20,7 @@ public class CuratorTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -44,10 +45,10 @@ public class CuratorTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatar()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -55,10 +56,10 @@ public class CuratorTest {
     @DisplayName("Доступ к реестру \"Экспертный совет\"")
     public void testAccessToOESCurator() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+                .checkNameOfRegistry();
     }
 
     @Order(3)
@@ -66,10 +67,10 @@ public class CuratorTest {
     @DisplayName("Доступ к реестру \"Координационный комитет\"")
     public void testAccessToCoordinatingCommitteeCurator() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryCoordinatingCommittee()
-                .checkNameOfRegistry("Координационный комитет");
+                .checkNameOfRegistry();
     }
 
     @Order(4)
@@ -77,10 +78,10 @@ public class CuratorTest {
     @DisplayName("Доступ к реестру \"Договоры\"")
     public void testAccessToAgreementCurator() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreement()
-                .checkNameOfRegistry("Договоры");
+                .checkNameOfRegistry();
     }
 
     @Order(5)
@@ -88,10 +89,10 @@ public class CuratorTest {
     @DisplayName("Доступ к реестру \"Отчетность по этапам\"")
     public void testAccessToReportCurator() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryReport()
-                .checkNameOfRegistry("Отчетность по этапам");
+                .checkNameOfRegistry();
     }
 
     @Order(6)

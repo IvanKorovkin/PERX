@@ -1,23 +1,20 @@
 package pageObject.registries;
 
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import pageObject.MainPage;
+import pageObject.BasePage;
 
-import static com.codeborne.selenide.Selenide.$;
+public class OESPage extends BasePage {
 
-public class OESPage {
+    BasePage basePage = new BasePage("Экспертный совет");
+    private final String linkToTheRegistry = basePage.getUrl() + "application/admin/oes";
 
-    MainPage mainPage = new MainPage();
-    public final String linkToTheRegistry = mainPage.urlOfMainPageAutorization + "application/admin/oes";
-
-    private SelenideElement registryName = $(By.xpath("//div[@id='information-bar__item_toggler']"));
+    public String getLinkToTheRegistry() {
+        return linkToTheRegistry;
+    }
 
     @Step("Проверить отображение наименования реестра \"Экспертный совет\"")
-    public void checkNameOfRegistry(String name) {
-        Assertions.assertEquals(name, registryName.getText());
+    public void checkNameOfRegistry() {
+        basePage.checkNameOfRegistry();
     }
 
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import pageObject.MainPage;
+import pageObject.otherPage.MainPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -19,6 +19,7 @@ public class AdminTest {
     @BeforeAll
     static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -34,7 +35,7 @@ public class AdminTest {
                 .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -42,10 +43,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Эксперты\"")
     public void testAccessToExpertsAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExperts()
-                .checkNameOfRegistry("Эксперты");
+                .checkNameOfRegistry();
     }
 
     @Order(3)
@@ -53,10 +54,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Экспертиза\"")
     public void testAccessToExpertiseAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExpertiseNew()
-                .checkNameOfRegistry("Экспертиза");
+                .checkNameOfRegistry();
     }
 
     @Order(4)
@@ -64,10 +65,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Договоры и акты с экспертами (новые)\"")
     public void testAccessToAgreementExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreementExpertNew()
-                .checkNameOfRegistry("Реестр договоров и актов с экспертами");
+                .checkNameOfRegistry();
     }
 
     @Order(5)
@@ -75,10 +76,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Рассмотрение итогов\"")
     public void testAccessToOESAdminAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOESAdmin()
-                .checkNameOfRegistry("Рассмотрение итогов");
+                .checkNameOfRegistry();
     }
 
     @Order(6)
@@ -86,10 +87,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Экспертный совет\"")
     public void testAccessToOESAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+                .checkNameOfRegistry();
     }
 
     @Order(7)
@@ -97,10 +98,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Координационный комитет\"")
     public void testAccessToCoordinatingCommitteeAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryCoordinatingCommittee()
-                .checkNameOfRegistry("Координационный комитет");
+                .checkNameOfRegistry();
     }
 
     @Order(8)
@@ -108,10 +109,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Договоры\"")
     public void testAccessToAgreementAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreement()
-                .checkNameOfRegistry("Договоры");
+                .checkNameOfRegistry();
     }
 
     @Order(9)
@@ -119,10 +120,10 @@ public class AdminTest {
     @DisplayName("Доступ к реестру \"Отчетность по этапам\"")
     public void testAccessToReportAdmin() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryReport()
-                .checkNameOfRegistry("Отчетность по этапам");
+                .checkNameOfRegistry();
     }
 
     @AfterEach

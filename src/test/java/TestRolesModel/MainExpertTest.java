@@ -9,7 +9,8 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.*;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -19,6 +20,7 @@ public class MainExpertTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -43,10 +45,10 @@ public class MainExpertTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatarOfMainExpert()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExpertiseNew()
-                .checkNameOfRegistry("Экспертиза");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -54,10 +56,10 @@ public class MainExpertTest {
     @DisplayName("Доступ к реестру \"Перечень заявок\"")
     public void testAccessToListOfApplicationMainExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(3)
@@ -65,10 +67,10 @@ public class MainExpertTest {
     @DisplayName("Доступ к реестру \"Эксперты\"")
     public void testAccessToExpertsMainExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExperts()
-                .checkNameOfRegistry("Эксперты");
+                .checkNameOfRegistry();
     }
 
     @Order(4)
@@ -76,10 +78,10 @@ public class MainExpertTest {
     @DisplayName("Доступ к реестру \"Договоры и акты с экспертами (новые)\"")
     public void testAccessToAgreementExpertMainExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreementExpertNew()
-                .checkNameOfRegistry("Реестр договоров и актов с экспертами");
+                .checkNameOfRegistry();
     }
 
     @Order(5)
@@ -87,10 +89,10 @@ public class MainExpertTest {
     @DisplayName("Доступ к реестру \"Рассмотрение итогов\"")
     public void testAccessToOESAdminMainExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOESAdmin()
-                .checkNameOfRegistry("Рассмотрение итогов");
+                .checkNameOfRegistry();
     }
 
     @Order(6)
@@ -98,10 +100,10 @@ public class MainExpertTest {
     @DisplayName("Доступ к реестру \"Экспертный совет\"")
     public void testAccessToOESMainExpert() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+                .checkNameOfRegistry();
     }
 
     @Order(7)

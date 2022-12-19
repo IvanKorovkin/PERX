@@ -1,21 +1,22 @@
-package pageObject;
+package pageObject.otherPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import pageObject.BasePage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
 public class AdminProfilePage {
 
-    private SelenideElement avatarOfUser = $(By.xpath("//*[@class=\"header__top-expert-email\"]"));
+    BasePage basePage = new BasePage();
 
-    private SelenideElement workingPanelInUsersMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
+    private final SelenideElement workingPanelInUsersMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
 
-    @Step("Навести курсор мыши на аватар админа")
+    @Step("Навести курсор мыши на аватар")
     public AdminProfilePage moveCursorToAvatar() {
-        avatarOfUser.hover();
+        basePage.moveCursorToAvatar();
 
         return page(AdminProfilePage.class);
     }

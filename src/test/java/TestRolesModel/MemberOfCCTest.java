@@ -1,15 +1,21 @@
 package TestRolesModel;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import pageObject.otherPage.MainPage;
 import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@Story("Проверка Ролевой модели Финансового сотрудника")
-public class FinancialEmployeeTest {
+@Story("Проверка Ролевой модели Члена Координационного комитета")
+public class MemberOfCCTest {
 
     @BeforeAll
     static void setUp() {
@@ -19,8 +25,8 @@ public class FinancialEmployeeTest {
 
     @Order(1)
     @Test
-    @DisplayName("Доступ к реестру \"Договоры\"")
-    public void testAccessToAgreementFinancialEmployee() {
+    @DisplayName("Доступ к реестру \"Экспертный совет\"")
+    public void testAccessToOESMemberOfCC() {
         new MainPage()
                 .entranceToMainPage()
                 .entranceButtonClick()
@@ -33,7 +39,7 @@ public class FinancialEmployeeTest {
                 .openSystemRolesFilter()
                 .selectInSystemRolesFilterUsers()
                 .editSystemRoleOfFirstUserInList()
-                .enterNewSystemRoleInModalWindow("Фин. Сотрудник")
+                .enterNewSystemRoleInModalWindow("Член Координационного комитета")
                 .closeModalWindowOfChangeSystemRole()
                 .clickButtonManagementFirstUser()
                 .clickButtonAuthUser()
@@ -41,25 +47,25 @@ public class FinancialEmployeeTest {
                 .confirmIdentity()
                 .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryAgreement()
+                .entranceToRegistryOES()
                 .checkNameOfRegistry();
     }
 
     @Order(2)
     @Test
-    @DisplayName("Доступ к реестру \"Отчетность по этапам\"")
-    public void testAccessToReportFinancialEmployee() {
+    @DisplayName("Доступ к реестру \"Координационный комитет\"")
+    public void testAccessToCoordinatingCommitteeMemberOfCC() {
         new MainPage()
                 .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryReport()
+                .entranceToRegistryCoordinatingCommittee()
                 .checkNameOfRegistry();
     }
 
     @Order(3)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Перечень заявок\"")
-    public void testAccessDeniedToListOfApplicationFinancialEmployee() {
+    public void testAccessDeniedToListOfApplicationMemberOfCC() {
         new WorkingPanelPage()
                 .followTheLinkListOfApplication()
                 .checkInaccessibilityRegistryForThisRole();
@@ -68,7 +74,7 @@ public class FinancialEmployeeTest {
     @Order(4)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Эксперты\"")
-    public void testAccessDeniedToExpertsFinancialEmployee() {
+    public void testAccessDeniedToExpertsMemberOfCC() {
         new WorkingPanelPage()
                 .followTheLinkExperts()
                 .checkInaccessibilityRegistryForThisRole();
@@ -77,7 +83,7 @@ public class FinancialEmployeeTest {
     @Order(5)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Экспертиза\"")
-    public void testAccessDeniedToExpertiseFinancialEmployee() {
+    public void testAccessDeniedToExpertiseMemberOfCC() {
         new WorkingPanelPage()
                 .followTheLinkExpertise()
                 .checkInaccessibilityRegistryForThisRole();
@@ -86,7 +92,7 @@ public class FinancialEmployeeTest {
     @Order(6)
     @Test
     @DisplayName("Отсутсвие доступа к реестру \"Договоры и акты с экспертами (новые)\"")
-    public void testAccessDeniedToAgreementExpertFinancialEmployee() {
+    public void testAccessDeniedToAgreementExpertMemberOfCC() {
         new WorkingPanelPage()
                 .followTheLinkAgreementExpert()
                 .checkInaccessibilityRegistryForThisRole();
@@ -95,7 +101,7 @@ public class FinancialEmployeeTest {
     @Order(7)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Расмотрение итогов\"")
-    public void testAccessDeniedToOESAdminFinancialEmployee() {
+    public void testAccessDeniedToOESAdminMemberOfCC() {
         new WorkingPanelPage()
                 .followTheLinkOESAdmin()
                 .checkInaccessibilityRegistryForThisRole();
@@ -103,19 +109,35 @@ public class FinancialEmployeeTest {
 
     @Order(8)
     @Test
-    @DisplayName("Отсутствие доступа к реестру \"Экспертный совет\"")
-    public void testAccessDeniedToOESFinancialEmployee() {
+    @DisplayName("Отсутствие доступа к реестру \"Договоры\"")
+    public void testAccessDeniedToAgreementMemberOfCC() {
         new WorkingPanelPage()
-                .followTheLinkOES()
+                .followTheLinkAgreement()
                 .checkInaccessibilityRegistryForThisRole();
     }
 
     @Order(9)
     @Test
-    @DisplayName("Отсутствие доступа к реестру \"Координационный комитет\"")
-    public void testAccessDeniedToCoordinatingCommitteeFinancialEmployee() {
+    @DisplayName("Отсутствие доступа к реестру \"Отчетность по этапам\"")
+    public void testAccessDeniedToReportMemberOfCC() {
         new WorkingPanelPage()
-                .followTheLinkCoordinatingCommittee()
+                .followTheLinkReport()
                 .checkInaccessibilityRegistryForThisRole();
     }
+
+    @AfterEach
+    void getLogs() {
+        LogEntries browserLogs = WebDriverRunner.getWebDriver().manage().logs().get(LogType.BROWSER);
+
+        for (LogEntry log: browserLogs) {
+            Allure.addAttachment("Сообщения в консоли браузера", log.getMessage());
+        }
+    }
+
+    @AfterAll
+    static void quitBrowser() {
+        Selenide.closeWebDriver();
+    }
+
+
 }

@@ -9,8 +9,8 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.MainPage;
-import pageObject.WorkingPanelPage;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 import pageObject.registries.ExpertiseNewPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,6 +21,7 @@ public class AnalyticTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -45,10 +46,10 @@ public class AnalyticTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatar()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExpertiseNew()
-                .checkNameOfRegistry("Экспертиза");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -96,10 +97,10 @@ public class AnalyticTest {
     @DisplayName("Доступ к реестру \"Перечень заявок\"")
     public void testAccessToListOfApplicationAnalytic() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(8)
@@ -107,10 +108,10 @@ public class AnalyticTest {
     @DisplayName("Доступ к реестру \"Координационный комитет\"")
     public void testAccessToCoordinatingCommitteeAnalytic() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryCoordinatingCommittee()
-                .checkNameOfRegistry("Координационный комитет");
+                .checkNameOfRegistry();
     }
 
     @Order(9)
@@ -118,10 +119,10 @@ public class AnalyticTest {
     @DisplayName("Доступ к реестру \"Договор\"")
     public void testAccessToAgreementAnalytic() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreement()
-                .checkNameOfRegistry("Договоры");
+                .checkNameOfRegistry();
     }
 
     @Order(10)
@@ -129,10 +130,10 @@ public class AnalyticTest {
     @DisplayName("Доступ к реестру \"Отчетность по этапаам\"")
     public void testAccessToReportAnalytic() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryReport()
-                .checkNameOfRegistry("Отчетность по этапам");
+                .checkNameOfRegistry();
     }
 
     @Order(11)

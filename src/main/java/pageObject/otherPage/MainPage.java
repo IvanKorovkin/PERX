@@ -1,27 +1,23 @@
-package pageObject;
+package pageObject.otherPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import pageObject.BasePage;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
 
-    private String basicName = "i.korovkin";
-    private String basicPassword = "zu_e8Oyah_p0oh";
-    private String demoFPG = "new.xn--80afcdbalict6afooklqi5o.xn--p1ai/";
-    public String urlOfMainPageAutorization = "https://" + basicName + ":" + basicPassword + "@" + demoFPG;
+    BasePage basePage = new BasePage();
 
-    private SelenideElement entranceButton = $(By.xpath("//*[@class='login-button']"));
+    private final SelenideElement entranceButton = $(By.xpath("//*[@class='login-button']"));
 
-    private SelenideElement avatarAuthUser = $(By.xpath("//a[@class='header__top-expert']"));
-
-    private SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
+    private final SelenideElement buttonWorkingPanelInMenu = $(By.xpath("//*[contains(text(), 'Рабочая панель')]"));
 
     @Step("Пройти базовую авторизацию и войти на главную страницу")
     public MainPage entranceToMainPage() {
-        open(urlOfMainPageAutorization);
+        open(basePage.getUrl());
 
         return this;
     }
@@ -33,9 +29,9 @@ public class MainPage {
         return page(LoginPage.class);
     }
 
-    @Step("Навести курсор на аватар уже залогиненного пользователя")
-    public MainPage moveCursorToAvatarOnMainPage() {
-        avatarAuthUser.hover();
+    @Step("Навести курсор на аватар")
+    public MainPage moveCursorToAvatar() {
+        basePage.moveCursorToAvatar();
 
         return this;
     }

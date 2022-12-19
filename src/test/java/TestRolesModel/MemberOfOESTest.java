@@ -9,8 +9,8 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import pageObject.MainPage;
-import pageObject.WorkingPanelPage;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -20,6 +20,7 @@ public class MemberOfOESTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -44,10 +45,10 @@ public class MemberOfOESTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatar()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -55,10 +56,10 @@ public class MemberOfOESTest {
     @DisplayName("Доступ к реестру \"Экспертный совет\"")
     public void testAccessToOESMemberOfOES() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+                .checkNameOfRegistry();
     }
 
     @Order(3)

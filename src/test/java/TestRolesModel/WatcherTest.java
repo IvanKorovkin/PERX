@@ -9,8 +9,8 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.MainPage;
-import pageObject.WorkingPanelPage;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 import pageObject.registries.ExpertiseNewPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,6 +21,7 @@ public class WatcherTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -45,10 +46,10 @@ public class WatcherTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatarOfMainExpert()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryExpertiseNew()
-                .checkNameOfRegistry("Экспертиза");
+                .checkNameOfRegistry();
     }
 
     @Order(2)
@@ -96,10 +97,10 @@ public class WatcherTest {
     @DisplayName("Доступ к реестру \"Экспертный совет\"")
     public void testAccessToOESWatcher() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryOES()
-                .checkNameOfRegistry("Экспертный совет");
+                .checkNameOfRegistry();
     }
 
     @Order(8)
@@ -107,10 +108,10 @@ public class WatcherTest {
     @DisplayName("Доступ к реестру \"Перечень заявок\"")
     public void testAccessToListOfApplicationWatcher() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry("Перечень заявок");
+                .checkNameOfRegistry();
     }
 
     @Order(9)
@@ -118,10 +119,10 @@ public class WatcherTest {
     @DisplayName("Доступ к реестру \"Договоры\"")
     public void testAccessToAgreementWatcher() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryAgreement()
-                .checkNameOfRegistry("Договоры");
+                .checkNameOfRegistry();
     }
 
     @Order(10)
@@ -129,10 +130,10 @@ public class WatcherTest {
     @DisplayName("Доступ к реестру \"Отчетность по этапам\"")
     public void testAccessToReportWatcher() {
         new MainPage()
-                .moveCursorToAvatarOnMainPage()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .entranceToRegistryReport()
-                .checkNameOfRegistry("Отчетность по этапам");
+                .checkNameOfRegistry();
     }
 
     @Order(11)

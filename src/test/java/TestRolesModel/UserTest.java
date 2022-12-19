@@ -5,28 +5,28 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import pageObject.otherPage.MainPage;
 import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@Story("Проверка ролевой модели валидатора")
-public class ValidatorTest {
+@Story("Проверка ролевой модели Пользователя")
+public class UserTest {
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         Configuration.timeout = 30000;
         Configuration.headless = true;
     }
 
     @Order(1)
     @Test
-    @DisplayName("Доступ к реестру \"Перечень заявок\"")
-    public void testAccessToListOfApplicationValidator() {
+    @DisplayName("Отсутствие доступа к реестру \"Перечень заявок\"")
+    public void testAccessDeniedToListOfApplicationUser() {
         new MainPage()
                 .entranceToMainPage()
                 .entranceButtonClick()
@@ -38,23 +38,19 @@ public class ValidatorTest {
                 .entranceToRegistryIdentity()
                 .openSystemRolesFilter()
                 .selectInSystemRolesFilterUsers()
-                .editSystemRoleOfFirstUserInList()
-                .enterNewSystemRoleInModalWindow("Валидатор")
-                .closeModalWindowOfChangeSystemRole()
                 .clickButtonManagementFirstUser()
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveCursorToAvatar()
-                .clickToWorkingPanelInUsersMenu()
-                .entranceToRegistryListOfApplication()
-                .checkNameOfRegistry();
+                .followTheLinkListOfApplication()
+                .checkInaccessibilityRegistryForThisRole();
+
     }
 
     @Order(2)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Эксперты\"")
-    public void testAccessDeniedToExpertsValidator() {
+    public void testAccessDeniedToExpertsUser() {
         new WorkingPanelPage()
                 .followTheLinkExperts()
                 .checkInaccessibilityRegistryForThisRole();
@@ -63,7 +59,7 @@ public class ValidatorTest {
     @Order(3)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Экспертиза\"")
-    public void testAccessDeniedToExpertiseValidator() {
+    public void testAccessDeniedToExpertiseUser() {
         new WorkingPanelPage()
                 .followTheLinkExpertise()
                 .checkInaccessibilityRegistryForThisRole();
@@ -72,7 +68,7 @@ public class ValidatorTest {
     @Order(4)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Договоры и акты с экспертами\"")
-    public void testAccessDeniedToAgreementExpertValidator() {
+    public void testAccessDeniedToAgreementExpertUser() {
         new WorkingPanelPage()
                 .followTheLinkAgreementExpert()
                 .checkInaccessibilityRegistryForThisRole();
@@ -81,7 +77,7 @@ public class ValidatorTest {
     @Order(5)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Расмотрение итогов\"")
-    public void testAccessDeniedToOESAdminValidator() {
+    public void testAccessDeniedToOESAdminUser() {
         new WorkingPanelPage()
                 .followTheLinkOESAdmin()
                 .checkInaccessibilityRegistryForThisRole();
@@ -90,7 +86,7 @@ public class ValidatorTest {
     @Order(6)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Экспертный совет\"")
-    public void testAccessDeniedToOESValidator() {
+    public void testAccessDeniedToOESUser() {
         new WorkingPanelPage()
                 .followTheLinkOES()
                 .checkInaccessibilityRegistryForThisRole();
@@ -99,7 +95,7 @@ public class ValidatorTest {
     @Order(7)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Координационный комитет\"")
-    public void testAccessDeniedToCoordinatingCommitteeValidator() {
+    public void testAccessDeniedToCoordinatingCommitteeUser() {
         new WorkingPanelPage()
                 .followTheLinkCoordinatingCommittee()
                 .checkInaccessibilityRegistryForThisRole();
@@ -108,7 +104,7 @@ public class ValidatorTest {
     @Order(8)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Договоры\"")
-    public void testAccessDeniedToAgreementValidator() {
+    public void testAccessDeniedToAgreementUser() {
         new WorkingPanelPage()
                 .followTheLinkAgreement()
                 .checkInaccessibilityRegistryForThisRole();
@@ -117,7 +113,7 @@ public class ValidatorTest {
     @Order(9)
     @Test
     @DisplayName("Отсутствие доступа к реестру \"Отчетность по этапам\"")
-    public void testAccessDeniedToReportValidator() {
+    public void testAccessDeniedToReportUser() {
         new WorkingPanelPage()
                 .followTheLinkReport()
                 .checkInaccessibilityRegistryForThisRole();
@@ -125,18 +121,16 @@ public class ValidatorTest {
 
     @AfterEach
     void getLogs() {
-        LogEntries browserLogs = WebDriverRunner.getWebDriver().manage().logs().get(String.valueOf(LogType.BROWSER));
+        LogEntries browserLogs = WebDriverRunner.getWebDriver().manage().logs().get(LogType.BROWSER);
 
-        for (LogEntry log: browserLogs) {
+        for (LogEntry log : browserLogs) {
             Allure.addAttachment("Сообщения в консоли браузера", log.getMessage());
         }
     }
 
     @AfterAll
-    public static void quitBrowser() {
+    static void quitBrowser() {
         Selenide.closeWebDriver();
     }
-
-
 
 }

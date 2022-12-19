@@ -1,4 +1,4 @@
-package pageObject;
+package pageObject.otherPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -9,17 +9,15 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class LoginPage {
 
-    private final String adminName = "lerique@me.com";
-    private final String adminPassword = "Vamg8P06#JF6kC2w";
+    private final SelenideElement usernameField = $(By.xpath("//*[@id=\"Username\"]"));
 
-    private SelenideElement usernameField = $(By.xpath("//*[@id=\"Username\"]"));
+    private final SelenideElement passwordField = $(By.xpath("//*[@id=\"Password\"]"));
 
-    private SelenideElement passwordField = $(By.xpath("//*[@id=\"Password\"]"));
-
-    private SelenideElement entranceButton = $(By.xpath("//*[@value=\"login\"]"));
+    private final SelenideElement entranceButton = $(By.xpath("//*[@value=\"login\"]"));
 
     @Step("Ввести логин Админа")
     public LoginPage enterAdminName() {
+        String adminName = "lerique@me.com";
         usernameField.sendKeys(adminName);
 
         return this;
@@ -27,6 +25,7 @@ public class LoginPage {
 
     @Step("Ввести пароль Админа")
     public LoginPage enterAdminPassword() {
+        String adminPassword = "Vamg8P06#JF6kC2w";
         passwordField.sendKeys(adminPassword);
 
         return this;

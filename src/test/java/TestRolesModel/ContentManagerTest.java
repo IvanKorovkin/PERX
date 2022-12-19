@@ -9,17 +9,18 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import pageObject.MainPage;
-import pageObject.WorkingPanelPage;
+import pageObject.otherPage.MainPage;
+import pageObject.otherPage.WorkingPanelPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@Story("Проверка ролевой модели контент-менеджера")
+@Story("Проверка ролевой модели Контент-менеджера")
 public class ContentManagerTest {
 
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 30000;
+        Configuration.headless = true;
     }
 
     @Order(1)
@@ -44,7 +45,7 @@ public class ContentManagerTest {
                 .clickButtonAuthUser()
                 .enterAdminPasswordIdentity()
                 .confirmIdentity()
-                .moveToAvatar()
+                .moveCursorToAvatar()
                 .clickToWorkingPanelInUsersMenu()
                 .followTheLinkListOfApplication()
                 .checkInaccessibilityRegistryForThisRole();
