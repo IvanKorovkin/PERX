@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Myrtex_Selenide" />
         <module name="ProjectMyrtex" />
+        <module name="PERX" />
       </profile>
     </annotationProcessing>
   </component>
