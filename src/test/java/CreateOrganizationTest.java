@@ -7,7 +7,7 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.AuthPage;
+import pageObject.Auth.AuthPage;
 import pageObject.Organizations.CreateOrganizationPage;
 import pageObject.Organizations.OrganizationsListPage;
 
@@ -18,8 +18,8 @@ public class CreateOrganizationTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 30000;
-        Configuration.pageLoadTimeout = 50000;
+        Configuration.timeout = 20000;
+        Configuration.pageLoadTimeout = 40000;
         //Configuration.headless = true;
     }
 
@@ -61,13 +61,21 @@ public class CreateOrganizationTest {
 
     @Order(5)
     @Test
+    @DisplayName("Проверка появления окна с предложением сохранить данные в случае ухода со страницы")
+    public void testSaveWindow() {
+        new CreateOrganizationPage()
+                .checkSaveWindow();
+    }
+
+    @Order(6)
+    @Test
     @DisplayName("Проверка успешного создания организации")
     public void testOrgCreate() {
         new CreateOrganizationPage()
                 .checkOrgCreate();
     }
 
-    @Order(6)
+    @Order(7)
     @Test
     @DisplayName("Проверка отображения в списке организаций созданной автотестом организации")
     public void testDisplayOrgInList() {
@@ -75,7 +83,7 @@ public class CreateOrganizationTest {
                 .checkDisplayOrgInList();
     }
 
-    @Order(7)
+    @Order(8)
     @Test
     @DisplayName("Проверка неуспешного создания организации с уже существующим названием")
     public void testOrgCreateRepeatName() {
@@ -84,7 +92,7 @@ public class CreateOrganizationTest {
                 .checkOrgCreateRepeatName();
     }
 
-    @Order(8)
+    @Order(9)
     @Test
     @DisplayName("Проверка удаления организации")
     public void testDeleteOrg() {
@@ -93,7 +101,7 @@ public class CreateOrganizationTest {
                 .deleteOrg();
     }
 
-    @Order(9)
+    @Order(10)
     @Test
     @DisplayName("Проверка того, что удаленная организация не отображается в списке")
     public void testAbsenceDeleteOrgInList() {

@@ -7,7 +7,7 @@ import io.qameta.allure.selenide.LogType;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import pageObject.AuthPage;
+import pageObject.Auth.AuthPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -16,8 +16,8 @@ public class AuthorizationTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 30000;
-        Configuration.pageLoadTimeout = 50000;
+        Configuration.timeout = 20000;
+        Configuration.pageLoadTimeout = 40000;
         //Configuration.headless = true;
     }
 

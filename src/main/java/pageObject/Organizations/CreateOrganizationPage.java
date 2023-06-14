@@ -6,10 +6,11 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import pageObject.BasePage;
+import pageObject.Spaces.SpacesListPage;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class CreateOrganizationPage extends BasePage {
+public class CreateOrganizationPage extends OrganizationsListPage {
 
     private final String url = "https://perxis.pt.perx.ru/orgs/create";
     private final String orgName = "Организация для avtotestov 123456 7890 !\"№;%:?*()_+";
@@ -20,11 +21,11 @@ public class CreateOrganizationPage extends BasePage {
             "центра огромной державы. Закладка гин лично решил обозначить его границы.";
 
     private final SelenideElement submitButton = $(By.xpath("//button[@type='submit']"));
-    private final SelenideElement deleteButton = $(By.xpath("//button[@type='button']"));
+    private final SelenideElement deleteButton = $(By.xpath("//button[.='Удалить организацию']"));
     private final SelenideElement confirmDeleteButton = $(By.xpath("//div[@class='ant-popconfirm-buttons']/button[.='OK']"));
 
     private final SelenideElement orgNameInput = $(By.xpath("//input[@id='org_name']"));
-    private final SelenideElement orgNameMessage = $(By.xpath("//div[@id='org_name_help']"));
+    private final SelenideElement orgNameMessage = $(By.xpath("//div[@class='ant-form-item-explain-error']"));
     private final SelenideElement orgDescriptionInput = $(By.xpath("//input[@id='org_description']"));
     private final SelenideElement orgLogoInput = $(By.xpath("//input[@id='org_logoUrl']"));
 
@@ -34,8 +35,7 @@ public class CreateOrganizationPage extends BasePage {
 
     private final SelenideElement emptyOrgNameError = $(By.xpath("//div[.='organization name required']"));
     private final SelenideElement createOrgMessage = $(By.xpath("//div[.='Организация успешно создана']"));
-    private final SelenideElement repeatOrgNameError = $(By.xpath("//div[.='error create organization: organizations " +
-            "with name Организация для avtotestov 123456 7890 !\"№;%:?*()_+ already exists']"));
+    private final SelenideElement repeatOrgNameError = $(By.xpath("//div[contains(text(), 'error create organization')]"));
     private final SelenideElement deleteOrgMessage = $(By.xpath("//div[.='Организация успешно удалена']"));
 
     public String getUrl() {
@@ -121,6 +121,22 @@ public class CreateOrganizationPage extends BasePage {
         deleteOrgMessage.shouldBe(Condition.enabled);
 
         return page(OrganizationsListPage.class);
+    }
+
+    @Step("Перейти в Пространства")
+    public SpacesListPage goToSpaces() {
+
+
+        return page(SpacesListPage.class);
+    }
+
+    @Step("Проверка появления окна с предложением сохранить данные в случае ухода со страницы")
+    public CreateOrganizationPage checkSaveWindow() {
+        getMenuContent().click();
+        getContinueWithoutSaveButton().shouldBe(Condition.enabled);
+        getCloseModalWindowButton().click();
+
+        return this;
     }
 
 
