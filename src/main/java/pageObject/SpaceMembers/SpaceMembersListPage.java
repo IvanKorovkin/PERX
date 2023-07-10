@@ -35,7 +35,7 @@ public class SpaceMembersListPage {
     private final SelenideElement invitationLink = $(By.xpath("//code"));
 
     private final SelenideElement settingsTestUser = $(By.xpath("(//span[.='Настройки'])[3]"));
-    private final SelenideElement settingsRoleInput = $(By.xpath("//span[@title='']"));
+    private final SelenideElement settingsRoleInput = $(By.xpath("//span[@class='ant-select-selection-item']"));
     private final SelenideElement settingsSubmitButton = $(By.xpath("(//button[.='OK'])[3]"));
     private final SelenideElement settingsDeleteButton = $(By.xpath("//button[.='Удалить']"));
 
@@ -64,13 +64,16 @@ public class SpaceMembersListPage {
     }
 
     @Step("Проверка всплывающего сообщения, если не заполнено поле Пользователь")
-    public SpaceMembersListPage checkErrorMessageUserInput() {
+    public SpaceMembersListPage checkErrorMessageUserInput() throws InterruptedException {
 
         String expectedResult = "Пожалуйста, введите Пользователь";
 
+        refresh();
+        Thread.sleep(500);
+        addMemberButton.shouldBe(Condition.enabled);
         addMemberButton.click();
+        submitButton.shouldBe(Condition.enabled);
         submitButton.click();
-
         errorMessage.shouldBe(Condition.visible);
 
         Assertions.assertEquals(expectedResult, errorMessage.getText());
@@ -83,7 +86,6 @@ public class SpaceMembersListPage {
         userInput.click();
         userInList.click();
         submitButton.click();
-
         settingsTestUser.shouldBe(Condition.enabled);
 
         return this;
@@ -91,10 +93,17 @@ public class SpaceMembersListPage {
 
     @Step("Проверка добавления участнику роли")
     public SpaceMembersListPage checkAddRole() {
+        refresh();
         settingsTestUser.click();
-        settingsRoleInput.click();
+
+        try {
+            settingsRoleInput.click();
+        } catch (Exception E) {
+            $(By.xpath("(//span[@title=''])[2]")).click();
+        }
+
         roleInList.click();
-        settingsSubmitButton.click();
+        submitButton.click();
         role.shouldBe(Condition.enabled);
 
         return this;
@@ -112,11 +121,20 @@ public class SpaceMembersListPage {
 
     @Step("Проверка работы кнопки Пригласить")
     public SpaceMembersListPage checkInvitationButton() {
+        //refresh();
+        inviteButton.shouldBe(Condition.enabled);
         inviteButton.click();
-
+        try {
+            invitationEmailInput.shouldBe(Condition.enabled);
+            invitationRoleInput.shouldBe(Condition.enabled);
+            submitButton.shouldBe(Condition.enabled);
+        } catch (Exception E) {
+            refresh();
+            inviteButton.click();
+        }
         invitationEmailInput.shouldBe(Condition.enabled);
         invitationRoleInput.shouldBe(Condition.enabled);
-        invitationSubmitButton.shouldBe(Condition.enabled);
+        submitButton.shouldBe(Condition.enabled);
 
         return this;
     }
@@ -126,11 +144,10 @@ public class SpaceMembersListPage {
 
         String deleteString = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
 
-
         invitationEmailInput.sendKeys(deleteString);
         invitationEmailInput.shouldBe(Condition.empty);
         invitationEmailInput.sendKeys(email);
-        invitationSubmitButton.click();
+        submitButton.click();
 
         invitationEmailInputErrorMessage.shouldBe(Condition.visible);
 
@@ -145,7 +162,7 @@ public class SpaceMembersListPage {
 
         invitationEmailInput.sendKeys(deleteString);
         invitationEmailInput.sendKeys(email);
-        invitationSubmitButton.click();
+        submitButton.click();
 
         invitationEmptyDescription.shouldNotBe(Condition.exist);
         deleteInvitationButton.shouldBe(Condition.enabled);
@@ -154,12 +171,19 @@ public class SpaceMembersListPage {
     }
 
     @Step("Проверка перехода по ссылке приглашению")
-    public SpaceMembersListPage checkFollowInvitationLink() {
+    public SpaceMembersListPage checkFollowInvitationLink() throws InterruptedException {
 
         String email = "test@test.ru";
 
         refresh();
+        Thread.sleep(500);
+        inviteButton.shouldBe(Condition.enabled);
         inviteButton.click();
+        try {
+            invitationEmailInput.shouldBe(Condition.enabled);
+        } catch (Exception E) {
+            inviteButton.click();
+        }
         invitationEmailInput.sendKeys(email);
         submitButton.click();
 
