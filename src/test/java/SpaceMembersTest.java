@@ -19,7 +19,7 @@ public class SpaceMembersTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 20000;
+        Configuration.timeout = 10000;
         Configuration.pageLoadTimeout = 40000;
         //Configuration.headless = true;
     }
@@ -41,7 +41,7 @@ public class SpaceMembersTest {
     @Order(2)
     @Test
     @DisplayName("Проверка всплывающего сообщения, если не заполнено поле Пользователь")
-    public void testErrorMessageUserInput() {
+    public void testErrorMessageUserInput() throws InterruptedException {
         new SpaceMembersListPage()
                 .checkErrorMessageUserInput();
     }
@@ -107,7 +107,7 @@ public class SpaceMembersTest {
     @Order(10)
     @Test
     @DisplayName("Проверка перехода по ссылке приглашению")
-    public void testFollowInvitationLink() {
+    public void testFollowInvitationLink() throws InterruptedException {
         new SpaceMembersListPage()
                 .checkFollowInvitationLink();
     }

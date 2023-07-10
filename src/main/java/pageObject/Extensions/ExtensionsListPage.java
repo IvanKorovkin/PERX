@@ -1,88 +1,50 @@
 package pageObject.Extensions;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import pageObject.BasePage;
+import pageObject.Extensions.Copier.CopierExtensionPage;
+import pageObject.Extensions.Forms.FormsExtensionPage;
+import pageObject.Extensions.Notifications.NotificationsExtensionPage;
+
 import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 
-public class ExtensionsListPage {
+public class ExtensionsListPage extends BasePage {
 
-    private final SelenideElement pageTitle = $(By.xpath("//span[@title='Расширения']"));
-    private final SelenideElement switchButton = $(By.xpath("//div[@class='ant-switch-handle']"));
+    protected final SelenideElement pageTitle = $(By.xpath("//span[@title='Расширения']"));
+    protected final SelenideElement switchButton = $(By.xpath("//div[@class='ant-switch-handle']"));
 
-    private final SelenideElement copierTitle = $(By.xpath("//div[.='Копирование и создание элементов по шаблону']"));
-    private final List<SelenideElement> installExtensionButton = $$(By.xpath("//button[.='Установить']"));
+    protected final SelenideElement copierTitle = $(By.xpath("//div[.='Копирование и создание элементов по шаблону']"));
+    protected final List<SelenideElement> installExtensionButton = $$(By.xpath("//button[.='Установить']"));
 
-    private final SelenideElement deleteExtensionButton = $(By.xpath("//button[.='Удалить']"));
-    private final SelenideElement reinstallExtensionButton = $(By.xpath("//button[.='Переустановить']"));
+    protected final SelenideElement deleteExtensionButton = $(By.xpath("//button[.='Удалить']"));
+    protected final SelenideElement reinstallExtensionButton = $(By.xpath("//button[.='Переустановить']"));
 
-    private final SelenideElement conflictCheckbox = $(By.xpath("//input[@class='ant-checkbox-input']"));
-    private final SelenideElement deleteDataCheckboxDelete = $(By.xpath("(//input[@class='ant-checkbox-input'])[1]"));
-    private final SelenideElement installExtensionModalWindowButton = $(By.xpath("(//button[.='Установить'])[11]"));
-    private final SelenideElement reinstallExtensionModalWindowButton = $(By.xpath("(//button[.='Переустановить'])[2]"));
-    private final SelenideElement successfulInstallModalWindowText
+    protected final SelenideElement conflictCheckbox = $(By.xpath("//input[@class='ant-checkbox-input']"));
+    protected final SelenideElement deleteDataCheckboxDelete = $(By.xpath("(//input[@class='ant-checkbox-input'])[1]"));
+    protected final SelenideElement installExtensionModalWindowButton = $(By.xpath("(//button[.='Установить'])[11]"));
+    protected final SelenideElement reinstallExtensionModalWindowButton = $(By.xpath("(//button[.='Переустановить'])[2]"));
+    protected final SelenideElement successfulInstallModalWindowText
             = $(By.xpath("//span[@class='ant-modal-confirm-title']"));
-    private final SelenideElement deleteExtensionModalWindowButton = $(By.xpath("(//button[.='Удалить'])[2]"));
-    private final SelenideElement confirmButton = $(By.xpath("//button[.='OK']"));
+    protected final SelenideElement deleteExtensionModalWindowButton = $(By.xpath("(//button[.='Удалить'])[2]"));
+    protected final SelenideElement confirmButton = $(By.xpath("//button[.='OK']"));
 
-    @Step("Проверка установки расширения Copier")
-    public ExtensionsListPage checkInstallExtensionCopier() {
+    protected final SelenideElement conflictCheckboxDeleteWindow = $(By.xpath("(//input[@class='ant-checkbox-input'])[2]"));
 
-        String expectedResult = "Установка расширения Копирование и создание элементов по шаблону выполнена успешно";
+    public CopierExtensionPage goToCopier() {
 
-        switchButton.click();
-        installExtensionButton.get(0).click();
-        conflictCheckbox.click();
-        installExtensionModalWindowButton.click();
-
-        successfulInstallModalWindowText.should(Condition.exactOwnText(expectedResult));
-
-        confirmButton.click();
-
-        deleteExtensionButton.shouldBe(Condition.enabled);
-        reinstallExtensionButton.shouldBe(Condition.enabled);
-
-        return page(ExtensionsListPage.class);
+         return page(CopierExtensionPage.class);
     }
 
-    @Step("Проверка переустановки расширения Copier")
-    public ExtensionsListPage checkReinstallExtensionCopier() {
+    public FormsExtensionPage goToForms() {
 
-        String expectedResult = "Переустановка расширения Копирование и создание элементов по шаблону выполнено успешно";
-
-        refresh();
-        reinstallExtensionButton.click();
-        conflictCheckbox.click();
-        reinstallExtensionModalWindowButton.click();
-
-        successfulInstallModalWindowText.should(Condition.exactOwnText(expectedResult));
-
-        confirmButton.click();
-
-        return page(ExtensionsListPage.class);
+        return page(FormsExtensionPage.class);
     }
 
-    @Step("Проверка удаления расширения Copier")
-    public ExtensionsListPage checkDeleteExtensionCopier() {
+    public NotificationsExtensionPage goToNotifications() {
 
-        String expectedResult = "Удаление расширения Копирование и создание элементов по шаблону выполнено успешно";
-
-        refresh();
-        deleteExtensionButton.click();
-        deleteDataCheckboxDelete.click();
-        conflictCheckbox.click();
-        deleteExtensionModalWindowButton.click();
-
-        successfulInstallModalWindowText.should(Condition.exactOwnText(expectedResult));
-
-        confirmButton.click();
-
-        deleteExtensionButton.shouldNotBe(Condition.visible);
-        reinstallExtensionButton.shouldNotBe(Condition.visible);
-
-        return page(ExtensionsListPage.class);
+        return page(NotificationsExtensionPage.class);
     }
 
 }

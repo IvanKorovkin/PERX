@@ -10,12 +10,12 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import pageObject.Auth.AuthPage;
-import pageObject.Extensions.ExtensionsListPage;
+import pageObject.Extensions.Forms.FormsExtensionPage;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-@Story("Проверка установки, переустановки и удаления расширения Copier")
-public class CopierExtensionsTest {
+@Story("Проверка установки, переустановки и удаления расширения Forms")
+public class FormsExtensionTest {
 
     @BeforeAll
     public static void setUp() {
@@ -26,8 +26,8 @@ public class CopierExtensionsTest {
 
     @Order(1)
     @Test
-    @DisplayName("Проверка установки расширения Copier")
-    public void testInstallExtensionCopier() {
+    @DisplayName("Проверка установки расширения Forms")
+    public void testInstallExtensionForms() {
         new AuthPage()
                 .openAuthPage()
                 .loginAdmin()
@@ -36,23 +36,33 @@ public class CopierExtensionsTest {
                 .goToTestSpace()
                 .goToMasterEnv()
                 .goToExtensionsList()
-                .checkInstallExtensionCopier();
+                .goToForms()
+                .checkInstallExtensionForms();
     }
 
     @Order(2)
     @Test
-    @DisplayName("Проверка переустановки расширения Copier")
-    public void testReinstallExtensionCopier() {
-        new ExtensionsListPage()
-                .checkReinstallExtensionCopier();
+    @DisplayName("Проверка переустановки расширения Forms")
+    public void testReinstallExtensionForms() {
+        new FormsExtensionPage()
+                .checkReinstallExtensionForms();
     }
 
     @Order(3)
     @Test
-    @DisplayName("Проверка удаления расширения Copier")
-    public void testDeleteExtensionCopier() {
-        new ExtensionsListPage()
-                .checkDeleteExtensionCopier();
+    @DisplayName("Проверка того, что нельзя удалить расширение Forms вместе с данными, если роль forms_extension " +
+            "используется каким-либо пользователем")
+    public void testDeleteExtensionFormsWithData() {
+        new FormsExtensionPage()
+                .checkDeleteExtensionFormsWithData();
+    }
+
+    @Order(4)
+    @Test
+    @DisplayName("Проверка удаления расширения Forms")
+    public void testDeleteExtensionForms() {
+        new FormsExtensionPage()
+                .checkDeleteExtensionForms();
     }
 
     @AfterEach

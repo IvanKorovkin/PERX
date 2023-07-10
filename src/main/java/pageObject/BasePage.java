@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import pageObject.Applications.ApplicationsListPage;
+import pageObject.Content.ContentPage;
 import pageObject.Environments.EnvironmentsListPage;
 import pageObject.Extensions.ExtensionsListPage;
 import pageObject.Organizations.OrganizationsListPage;
@@ -60,6 +61,13 @@ public class BasePage {
 
     public SelenideElement getContinueWithoutSaveButton() {
         return continueWithoutSaveButton;
+    }
+
+    @Step("Перейти в контент")
+    public ContentPage goToContent() {
+        menuContent.click();
+
+        return page(ContentPage.class);
     }
 
     @Step("Перейти в список организаций")
